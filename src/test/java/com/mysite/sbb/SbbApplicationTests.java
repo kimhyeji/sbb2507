@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -118,6 +119,7 @@ class SbbApplicationTests {
 
 	@Test
 	@Transactional
+	@Rollback(false)
 	void testJpa011() {
 		Optional<Question> oq = this.questionRepository.findById(2);
 		assertTrue(oq.isPresent());
