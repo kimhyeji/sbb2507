@@ -1,5 +1,6 @@
 package com.mysite.sbb.question;
 
+import com.mysite.sbb.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,10 @@ public class QuestionService {
     public Question getQuestion(Integer id) {
         Optional<Question> oq = this.questionRepository.findById(id);
 
-        if ( oq.isEmpty() ) {
-            return null;
+        if ( oq.isPresent() ) {
+            return oq.get();
+        } else {
+            throw new DataNotFoundException("question not found");
         }
-
-        return oq.get();
     }
 }
