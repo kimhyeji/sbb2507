@@ -59,6 +59,7 @@ public class QuestionController {
         SiteUser siteUser = this.userService.getUser(principal.getName());
 
         this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+
         return "redirect:/question/list";
     }
 
@@ -73,8 +74,6 @@ public class QuestionController {
 
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
-        
-        // TODO: 수정 기능 구현
 
         return "question_form";
     }
