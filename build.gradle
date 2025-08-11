@@ -47,6 +47,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	// 타임리프 레이아웃
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	// 마크다운
+	implementation 'org.commonmark:commonmark:0.21.0'
 }
 
 tasks.named('test') {
