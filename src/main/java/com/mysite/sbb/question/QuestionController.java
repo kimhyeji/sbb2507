@@ -128,11 +128,10 @@ public class QuestionController {
         Question question = this.questionService.getQuestion(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
 
-        Question votedQuestion = this.questionService.getQuestion(id);
-
-        Integer voteCount = votedQuestion.getVoter().size();
-
         this.questionService.vote(question, siteUser);
+
+        Question votedQuestion = this.questionService.getQuestion(id);
+        Integer voteCount = votedQuestion.getVoter().size();
 
         return voteCount.toString();
     }

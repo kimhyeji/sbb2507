@@ -11,10 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -101,12 +98,16 @@ public class AnswerController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
+    @ResponseBody
     public String voteAnswer(@PathVariable("id") Integer id, Principal principal) {
         Answer answer = this.answerService.getAnswer(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
 
         this.answerService.vote(answer, siteUser);
 
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        Answer votedAnswer = this.answerService.getAnswer(id);
+        Integer votedCount = votedAnswer.getVoter().size();
+
+        return votedCount.toString();
     }
 }
